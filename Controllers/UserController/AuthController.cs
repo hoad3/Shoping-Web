@@ -77,4 +77,35 @@ public class AuthController : ControllerBase
             
         });
     }
+    [HttpPost]
+    [Route("change-password")]
+    public async Task<IActionResult> ChangePassword(UserChangePasswordDto user)
+    {
+        // Kiểm tra sự tồn tại của account
+        var existingUser = await _context.USER.FirstOrDefaultAsync(u => u.account == user.account);
+        if (existingUser == null)
+        {
+            return NotFound("Account does not exist.");
+        }
+
+        // Cập nhật mật khẩu mới
+        existingUser.password = user.newPassword;
+        _context.USER.Update(existingUser);
+        await _context.SaveChangesAsync();
+
+        return Ok("Password changed successfully");
+    }
+
+    [HttpGet]
+    [Route("Find_Account/{userId}")]
+    public async Task<IActionResult> FindAccount(int userId)
+    {
+        var dbUser = await _context.USER.Where(u => u.id == userId).ToListAsync();
+        if (dbUser == null)
+        {
+            return Unauthorized("Invalid credentials");
+        }
+
+        return Ok(dbUser);
+    }
 }

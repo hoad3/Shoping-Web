@@ -159,3 +159,4 @@ E:\Project_C#\Web_2\Web_2\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.
 E:\Project_C#\Web_2\Web_2\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\Project_C#\Web_2\Web_2\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\Project_C#\Web_2\Web_2\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+E:\Project_C#\Web_2\Web_2\obj\Debug\net8.0\Web_2.sourcelink.json
