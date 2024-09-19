@@ -2,7 +2,9 @@
 
 public class CartItemShopingDto
 {
-    public int CartItemId { get; set; }
-    public int CartId { get; set; }
-    public int ProductId { get; set; }
+    // public int CartItemId { get; set; }
+    // public int CartId { get; set; }
+    public int quantity { get; set; }
+    // public int ProductId { get; set; }
+    
 }

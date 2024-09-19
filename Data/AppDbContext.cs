@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Web_2.Models;
 using Web_2.Models.Carts;
 using Web_2.Models.Product;
+using Web_2.Models.Thanhtoan;
 
 namespace Web_2.Data;
 public class AppDbContext : DbContext
@@ -14,11 +15,42 @@ public class AppDbContext : DbContext
         public DbSet<CartShoping> CartShoping { get; set; }
         public DbSet<CartItemShoping> CartItemShoping { get; set; }
         public DbSet<InformationUser> InformationUser { get; set; }
+        public DbSet<ThanhToan> ThanhToan { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             // Đảm bảo rằng EF biết các mối quan hệ và khóa chính
+            // Thiết lập khóa chính cho bảng Thanhtoan
+            modelBuilder.Entity<ThanhToan>()
+                .ToTable("ThanhToan") // Xác định tên bảng là "ThanhToan"
+                .HasKey(t => t.Id);
             
+            modelBuilder.Entity<ThanhToan>()
+                .Property(t => t.Id)
+                .ValueGeneratedOnAdd(); // Cấu hình tự động tăng giá trị cho cột Id
+            
+            // Thiết lập khóa ngoại Idnguoimua liên kết với bảng User
+            modelBuilder.Entity<ThanhToan>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(t => t.Idnguoimua)
+                .OnDelete(DeleteBehavior.Restrict);  // Tùy chọn hành vi xóa
+
+            // Thiết lập khóa ngoại Idnguoiban liên kết với bảng User
+            modelBuilder.Entity<ThanhToan>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(t => t.Idnguoiban)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Thiết lập khóa ngoại ProductId liên kết với bảng Product
+            modelBuilder.Entity<ThanhToan>()
+                .HasOne<Product>()
+                .WithMany()
+                .HasForeignKey(t => t.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+            
+            // Thiết lập khóa chính cho bảng CartShoping
             modelBuilder.Entity<CartShoping>()
                 .HasKey(c => c.CartId);
             // Cấu hình thuộc tính CreatedAt

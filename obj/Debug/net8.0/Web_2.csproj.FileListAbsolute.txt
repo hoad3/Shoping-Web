@@ -160,3 +160,10 @@ E:\Project_C#\Web_2\Web_2\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Worksp
 E:\Project_C#\Web_2\Web_2\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\Project_C#\Web_2\Web_2\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 E:\Project_C#\Web_2\Web_2\obj\Debug\net8.0\Web_2.sourcelink.json
+E:\Project_C#\Web_2\Web_2\bin\Debug\net8.0\Web_2.staticwebassets.runtime.json
+E:\Project_C#\Web_2\Web_2\bin\Debug\net8.0\CommunityToolkit.HighPerformance.dll
+E:\Project_C#\Web_2\Web_2\bin\Debug\net8.0\Minio.dll
+E:\Project_C#\Web_2\Web_2\bin\Debug\net8.0\System.IO.Hashing.dll
+E:\Project_C#\Web_2\Web_2\bin\Debug\net8.0\System.Reactive.dll
+E:\Project_C#\Web_2\Web_2\bin\Debug\net8.0\Minio.AspNetCore.dll
+E:\Project_C#\Web_2\Web_2\bin\Debug\net8.0\BCrypt.Net-Next.dll

@@ -10,10 +10,13 @@ public class CartItemShoping
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int CartItemId { get; set; }
     public int CartId { get; set; }
-    
+    public int Quantity { get; set; }
     [JsonIgnore]
     public CartShoping CartShoping { get; set; }
     public int ProductId { get; set; }
+    
     public Product.Product Product { get; set; }
+    
+  
    
 }

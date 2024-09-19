@@ -5,7 +5,7 @@
 namespace Web_2.Migrations
 {
     /// <inheritdoc />
-    public partial class Update_4 : Migration
+    public partial class Update_16 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

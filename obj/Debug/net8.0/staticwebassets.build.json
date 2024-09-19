@@ -1,11 +1,19 @@
 {
   "Version": 1,
-  "Hash": "PgYpQZKtKx0DvURlWv9bUKBsNCeTxMeAOwt+6nRurdE=",
+  "Hash": "+Kx1E5hFOvIKagrUQREFMcBM+sgZiVpZGH2ve0oDsVs=",
   "Source": "Web_2",
   "BasePath": "_content/Web_2",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Web_2\\wwwroot",
+      "Source": "Web_2",
+      "ContentRoot": "E:\\Project_C#\\Web_2\\Web_2\\wwwroot\\",
+      "BasePath": "_content/Web_2",
+      "Pattern": "**"
+    }
+  ],
   "Assets": []
 }

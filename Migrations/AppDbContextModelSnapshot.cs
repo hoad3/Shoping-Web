@@ -37,6 +37,9 @@ namespace Web_2.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
                     b.HasKey("CartItemId");
 
                     b.HasIndex("CartId");
@@ -138,6 +141,49 @@ namespace Web_2.Migrations
                     b.ToTable("product", "Data");
                 });
 
+            modelBuilder.Entity("Web_2.Models.Thanhtoan.ThanhToan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Dongia")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Idnguoiban")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Idnguoimua")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("Ngaythanhtoan")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Phuongthucthanhtoan")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Soluong")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Tongtien")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Idnguoiban");
+
+                    b.HasIndex("Idnguoimua");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ThanhToan", "Data");
+                });
+
             modelBuilder.Entity("Web_2.Models.User", b =>
                 {
                     b.Property<int>("id")
@@ -153,6 +199,9 @@ namespace Web_2.Migrations
                     b.Property<string>("password")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("role")
+                        .HasColumnType("integer");
 
                     b.HasKey("id");
 
@@ -187,6 +236,27 @@ namespace Web_2.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Web_2.Models.Thanhtoan.ThanhToan", b =>
+                {
+                    b.HasOne("Web_2.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("Idnguoiban")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Web_2.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("Idnguoimua")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Web_2.Models.Product.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Web_2.Models.Carts.CartShoping", b =>

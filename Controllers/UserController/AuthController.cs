@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Web_2.AuthSetup;
 using Web_2.Data;
 using Web_2.Models;
 
@@ -15,10 +16,13 @@ namespace Web_2.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly AppDbContext _context;
+    private readonly AuthService _authService;
+    private readonly TokenService _tokenService;
 
-    public AuthController(AppDbContext context)
+    public AuthController(AppDbContext context,TokenService tokenService)
     {
         _context = context;
+        _tokenService = tokenService;
     }
 
     [HttpPost]
@@ -49,32 +53,49 @@ public class AuthController : ControllerBase
     {
         
         // Check if user exists
+        // var dbUser = _context.USER.FirstOrDefault(u => u.account == user.account && u.password == user.password);
+        // if (dbUser == null)
+        // {
+        //     return Unauthorized("Invalid credentials");
+        // }
+        //
+        // // Generate JWT Token
+        // var tokenHandler = new JwtSecurityTokenHandler();
+        // var key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"u8.ToArray();
+        // var tokenDescriptor = new SecurityTokenDescriptor
+        // {
+        //     Subject = new ClaimsIdentity(new Claim[]
+        //     {
+        //         new Claim(ClaimTypes.Name, dbUser.id.ToString())
+        //     }),
+        //     Expires = DateTime.UtcNow.AddHours(1),
+        //     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key[..128]), SecurityAlgorithms.HmacSha256Signature)
+        // };
+        // var token = tokenHandler.CreateToken(tokenDescriptor);
+        // var tokenString = tokenHandler.WriteToken(token);
+        //
+        // return Ok(new
+        // {
+        //     Token = tokenString,
+        //     Userid = dbUser.id
+        //     
+        // });
+        // Kiểm tra thông tin đăng nhập
         var dbUser = _context.USER.FirstOrDefault(u => u.account == user.account && u.password == user.password);
         if (dbUser == null)
         {
-            return Unauthorized("Invalid credentials");
+            Console.WriteLine($"No user found with account: {user.account} and password: {user.password}");
+            return Unauthorized("Tài khoản hoặc mật khẩu không chính xác");
         }
 
-        // Generate JWT Token
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"u8.ToArray();
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(new Claim[]
-            {
-                new Claim(ClaimTypes.Name, dbUser.id.ToString())
-            }),
-            Expires = DateTime.UtcNow.AddHours(1),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key[..128]), SecurityAlgorithms.HmacSha256Signature)
-        };
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        var tokenString = tokenHandler.WriteToken(token);
+        // Tạo JWT token
+        var token = _tokenService.GenerateToken(dbUser);
 
         return Ok(new
         {
-            Token = tokenString,
-            Userid = dbUser.id
-            
+            Token = token,
+            Userid = dbUser.id,
+            Role = dbUser.role // Trả về role của người dùng
         });
     }
     [HttpPost]

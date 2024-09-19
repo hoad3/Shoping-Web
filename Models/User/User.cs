@@ -14,6 +14,8 @@ public class User
 
     // [Required]
     public string password { get; set; }
+    
+    public int role { get; set; }
  
     public virtual InformationUser InformationUser { get; set; }
 }
